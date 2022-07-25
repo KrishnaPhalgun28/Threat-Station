@@ -14,6 +14,7 @@ mixin HomePageTheme {
   static const Color inspectBorderColor = Colors.transparent;
   static const Color inspectOverlayColor = Colors.pink;
   static const Color inspectBackgroundColor = Colors.pink;
+  static const Color spinKitIndicatorColor = Colors.deepPurple;
 }
 
 mixin LogoWidgetTheme {

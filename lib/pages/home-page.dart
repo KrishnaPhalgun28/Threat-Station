@@ -1,9 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import '../css.dart';
+import '../colors.dart';
 import '../widgets/logo-widget.dart';
-import '../widgets/inspect-widget.dart';
 import '../widgets/url-field-widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,9 +25,17 @@ class HomePage extends StatelessWidget {
             children: [
               SizedBox(height: constraints.maxHeight * 0.05),
               Container(
-                constraints:
-                    BoxConstraints(maxWidth: constraints.maxWidth * 0.3),
-                child: const HomePageTitleWidget(),
+                constraints: BoxConstraints(
+                  maxWidth: constraints.maxWidth * 0.35,
+                ),
+                child: const Text(
+                  'where is the code you want to test?',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: HomePageTheme.titleColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
               const SizedBox(height: 16),
               Row(
@@ -40,31 +47,11 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              InspectWidget(
-                controller: textController,
-              ),
             ],
           );
         },
       ),
       backgroundColor: HomePageTheme.scaffoldBackgroundColor,
-    );
-  }
-}
-
-class HomePageTitleWidget extends StatelessWidget {
-  const HomePageTitleWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text(
-      'where is the code you want to test?',
-      style: TextStyle(
-        fontSize: 32,
-        color: HomePageTheme.titleColor,
-      ),
-      textAlign: TextAlign.center,
     );
   }
 }
