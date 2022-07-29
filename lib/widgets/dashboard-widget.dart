@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file-statistics-widget.dart';
+import 'inspect-stats-widget.dart';
 import '../widgets/source-types-widget.dart';
 import '../widgets/key-features-widget.dart';
 import '../providers/inspect-api-provider.dart';

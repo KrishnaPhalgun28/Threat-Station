@@ -51,7 +51,7 @@ class KeyFeaturesWidget extends StatelessWidget {
                       splashRadius: 20,
                       color: (inspectAPIProvider
                               .appInspectorData.featureIndicies
-                              .contains(i))
+                              .containsKey(i))
                           ? HomePageTheme.keyFeatureEnabledColor
                           : HomePageTheme.keyFeatureDisabledColor,
                       splashColor: HomePageTheme.keyFeatureSplashColor,
@@ -61,6 +61,8 @@ class KeyFeaturesWidget extends StatelessWidget {
                           ? () {
                               showDialogWithFields(
                                 context,
+                                inspectAPIProvider
+                                    .appInspectorData.featureIndicies[i]!,
                                 inspectAPIProvider
                                     .appInspectorData.patternData[i]!,
                               );
@@ -83,6 +85,7 @@ class KeyFeaturesWidget extends StatelessWidget {
 
 void showDialogWithFields(
   BuildContext context,
+  String title,
   List<dynamic> patternData,
 ) {
   showDialog(
@@ -90,7 +93,7 @@ void showDialogWithFields(
     builder: (BuildContext context) {
       return LayoutBuilder(
         builder: (context, constraints) => AlertDialog(
-          title: const Text('Source File Listing'),
+          title: Text('Source File Listing: $title'),
           content: Container(
             constraints: BoxConstraints(
               maxHeight: 0.8 * constraints.maxHeight,

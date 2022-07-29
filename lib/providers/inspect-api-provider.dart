@@ -22,7 +22,7 @@ class AppInspectorData {
   late final List<dynamic> uniqueTags;
   late final Map<String, dynamic> languages;
   late final List<dynamic> detailedMatchList;
-  late List<int> featureIndicies;
+  late Map<int, String> featureIndicies;
   late Map<int, List<dynamic>> patternData;
 
   AppInspectorData(Map<String, dynamic> data) {
@@ -33,12 +33,12 @@ class AppInspectorData {
     languages = data['languages'];
     detailedMatchList = data['detailedMatchList'];
 
-    featureIndicies = [];
+    featureIndicies = {};
     for (int i = 0; i < keyFeatureIcons.length; i++) {
       for (int j = 0; j < uniqueTags.length; j++) {
         if ((uniqueTags[j] as String)
             .contains(keyFeatureIcons.keys.elementAt(i))) {
-          featureIndicies.add(i);
+          featureIndicies[i] = uniqueTags[j];
         }
       }
     }
