@@ -46,9 +46,11 @@ class _URLFieldWidgetState extends State<URLFieldWidget> {
       ) =>
           TextFormField(
         controller: widget.controller,
+        cursorColor: HomePageTheme.textFieldCursorColor,
         onFieldSubmitted: (value) {
-          inspectAPIProvider.fetch();
-          debugPrint(value);
+          if (inspectAPIProvider.currentState != InspectAPIState.fetching) {
+            inspectAPIProvider.fetch(widget.controller.text);
+          }
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
@@ -56,6 +58,7 @@ class _URLFieldWidgetState extends State<URLFieldWidget> {
           floatingLabelBehavior: FloatingLabelBehavior.never,
           labelText: "https://github.com/ or equivalent",
           fillColor: HomePageTheme.textFieldFillColor,
+          hoverColor: HomePageTheme.textFieldHoverColor,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               color: HomePageTheme.textFieldBorderColor,
@@ -75,40 +78,78 @@ class _URLFieldWidgetState extends State<URLFieldWidget> {
                     color: HomePageTheme.spinKitIndicatorColor,
                   ),
                 )
-              : length > 0
-                  ? IconButton(
-                      hoverColor: HomePageTheme.suffixHoverColor,
-                      splashColor: HomePageTheme.suffixSplashColor,
-                      highlightColor: HomePageTheme.suffixHighlightColor,
-                      onPressed: () {
-                        widget.controller.clear();
-                      },
-                      icon: const Icon(
-                        Icons.clear,
-                        color: HomePageTheme.suffixIconColor,
-                      ),
+              : inspectAPIProvider.currentState == InspectAPIState.fetchFailed
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          hoverColor: HomePageTheme.suffixHoverColor,
+                          splashColor: HomePageTheme.suffixSplashColor,
+                          highlightColor: HomePageTheme.suffixHighlightColor,
+                          onPressed: () {
+                            widget.controller.clear();
+                            inspectAPIProvider.reset();
+                          },
+                          icon: const Icon(
+                            Icons.clear,
+                            color: HomePageTheme.suffixIconColor,
+                          ),
+                        ),
+                        Tooltip(
+                          padding: const EdgeInsets.all(8),
+                          message: inspectAPIProvider.errorMessage,
+                          textStyle: const TextStyle(
+                            color: HomePageTheme.tooltipTextColor,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: HomePageTheme.tooltipBackgroundColor,
+                          ),
+                          child: const IconButton(
+                            iconSize: 22,
+                            padding: EdgeInsets.fromLTRB(0, 0, 6, 0),
+                            onPressed: null,
+                            icon: Icon(
+                              Icons.info_outline,
+                              color: HomePageTheme.suffixIconErrorColor,
+                            ),
+                          ),
+                        ),
+                      ],
                     )
-                  : IconButton(
-                      hoverColor: HomePageTheme.suffixHoverColor,
-                      splashColor: HomePageTheme.suffixSplashColor,
-                      highlightColor: HomePageTheme.suffixHighlightColor,
-                      iconSize: 22,
-                      onPressed: () {
-                        FlutterClipboard.paste().then((value) {
-                          setState(() {
-                            widget.controller.value = TextEditingValue(
-                              text: value,
-                              selection:
-                                  TextSelection.collapsed(offset: value.length),
-                            );
-                          });
-                        });
-                      },
-                      icon: const Icon(
-                        Icons.paste,
-                        color: HomePageTheme.suffixIconColor,
-                      ),
-                    ),
+                  : length > 0
+                      ? IconButton(
+                          hoverColor: HomePageTheme.suffixHoverColor,
+                          splashColor: HomePageTheme.suffixSplashColor,
+                          highlightColor: HomePageTheme.suffixHighlightColor,
+                          onPressed: () {
+                            widget.controller.clear();
+                          },
+                          icon: const Icon(
+                            Icons.clear,
+                            color: HomePageTheme.suffixIconColor,
+                          ),
+                        )
+                      : IconButton(
+                          hoverColor: HomePageTheme.suffixHoverColor,
+                          splashColor: HomePageTheme.suffixSplashColor,
+                          highlightColor: HomePageTheme.suffixHighlightColor,
+                          iconSize: 22,
+                          onPressed: () {
+                            FlutterClipboard.paste().then((value) {
+                              setState(() {
+                                widget.controller.value = TextEditingValue(
+                                  text: value,
+                                  selection: TextSelection.collapsed(
+                                      offset: value.length),
+                                );
+                              });
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.paste,
+                            color: HomePageTheme.suffixIconColor,
+                          ),
+                        ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.zero),
           ),
