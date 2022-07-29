@@ -93,8 +93,7 @@ void showDialogWithFields(
           title: const Text('Source File Listing'),
           content: Container(
             constraints: BoxConstraints(
-              minWidth: 0.5 * constraints.maxWidth,
-              maxHeight: 0.8 * constraints.maxWidth,
+              maxHeight: 0.8 * constraints.maxHeight,
             ),
             width: 0.55 * constraints.maxWidth,
             child: SingleChildScrollView(
