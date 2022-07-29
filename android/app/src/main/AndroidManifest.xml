@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.threatstation">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="threatstation"
         android:name="${applicationName}"
