@@ -59,8 +59,27 @@ class AppInspectorData {
   }
 }
 
+class SnykData {
+  late final String name;
+  late final String title;
+  late final String severity;
+  late final String indentifier;
+  late final String cvssScore;
+  late final String description;
+
+  SnykData(Map<String, dynamic> data) {
+    name = data['name'];
+    title = data['title'];
+    severity = data['severity'];
+    indentifier = data['indentifier'];
+    cvssScore = data['cvssScore'].toString();
+    description = data['description'];
+  }
+}
+
 class InspectAPIProvider extends ChangeNotifier {
   late AppInspectorData appInspectorData;
+  late List<SnykData> snykData = [];
   late String errorMessage = '';
   InspectAPIState currentState = InspectAPIState.idle;
 
@@ -81,6 +100,10 @@ class InspectAPIProvider extends ChangeNotifier {
         final Map<String, dynamic> output =
             Map<String, dynamic>.from(jsonDecode(response.body));
         appInspectorData = AppInspectorData(output['app-inspector']);
+        for (int i = 0; i < output['snyk-test'].length; i++) {
+          snykData.add(SnykData(output['snyk-test'][i]));
+        }
+        debugPrint(snykData.length.toString());
         currentState = InspectAPIState.fetchSucceed;
         notifyListeners();
         return;

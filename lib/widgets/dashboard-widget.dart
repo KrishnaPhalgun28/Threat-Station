@@ -6,6 +6,7 @@ import 'file-statistics-widget.dart';
 import '../widgets/source-types-widget.dart';
 import '../widgets/key-features-widget.dart';
 import '../providers/inspect-api-provider.dart';
+import 'vulnerabilities-widget.dart';
 
 class DashboardWidget extends StatelessWidget {
   const DashboardWidget({Key? key}) : super(key: key);
@@ -23,27 +24,35 @@ class DashboardWidget extends StatelessWidget {
           child: SingleChildScrollView(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: const [
-                      SizedBox(
-                        width: 400,
-                        child: FileStatisticsWidget(),
-                      ),
-                      SizedBox(height: 16),
-                      SizedBox(
-                        width: 400,
-                        child: KeyFeaturesWidget(),
-                      ),
-                      SizedBox(height: 16),
-                      SizedBox(
-                        width: 400,
-                        child: SourceTypesWidget(),
-                      ),
-                    ],
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: const [
+                    SizedBox(
+                      width: 400,
+                      child: VulnerabilitiesWidget(),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: const [
+                    SizedBox(
+                      width: 400,
+                      child: InspectStatsWidget(),
+                    ),
+                    SizedBox(height: 16),
+                    SizedBox(
+                      width: 400,
+                      child: KeyFeaturesWidget(),
+                    ),
+                    SizedBox(height: 16),
+                    SizedBox(
+                      width: 400,
+                      child: SourceTypesWidget(),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -21,10 +21,12 @@ mixin HomePageTheme {
   static const Color keyFeatureDisabledColor = Colors.grey;
   static const Color keyFeatureSplashColor = Colors.transparent;
   static const Color patternTileDividerColor = Colors.transparent;
-  static const Color fileStatisticsBorderColor = Colors.purple;
+  static const Color inspectStatsBorderColor = Colors.purple;
   static const Color vulnerabilityHighColor = Colors.red;
-  static const Color vulnerabilityMediumColor = Colors.red;
-  static const Color vulnerabilityLowColor = Colors.grey;
+  static const Color vulnerabilityMediumColor = Colors.orange;
+  static const Color vulnerabilityLowColor = Colors.blue;
+  static const Color vulnerabilityUnknownColor = Colors.grey;
+  static const Color vulnerabilityCriticalColor = Colors.black;
 }
 
 mixin LogoWidgetTheme {
