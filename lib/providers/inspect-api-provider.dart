@@ -103,7 +103,6 @@ class InspectAPIProvider extends ChangeNotifier {
         for (int i = 0; i < output['snyk-test'].length; i++) {
           snykData.add(SnykData(output['snyk-test'][i]));
         }
-        debugPrint(snykData.length.toString());
         currentState = InspectAPIState.fetchSucceed;
         notifyListeners();
         return;
