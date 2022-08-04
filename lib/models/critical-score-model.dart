@@ -19,6 +19,6 @@ class CriticalityScoreModel {
     dependentsCount =
         data['dependentsCount'] == -1 ? '' : data['dependentsCount'].toString();
     criticalityScore =
-        data['criticalityScore'] == -1 ? 1 : data['criticalityScore'] * 100;
+        data['criticalityScore'] == -1 ? 0 : data['criticalityScore'] * 100;
   }
 }

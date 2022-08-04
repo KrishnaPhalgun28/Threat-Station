@@ -53,7 +53,7 @@ class PyGithubModel {
     contributorsCount = data['contributorsCount'] == -1
         ? "-"
         : data['contributorsCount'].toString();
-    collaboratorsCount = data['collaboratorsCount'] == -1
+    collaboratorsCount = data['collaboratorsCount'] == null
         ? "-"
         : data['collaboratorsCount'].toString();
     contributionsCount = data['contributionsCount'] == -1

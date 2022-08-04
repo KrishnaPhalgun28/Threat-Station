@@ -49,7 +49,7 @@ class VulnerabilitiesWidget extends StatelessWidget {
                     children: [
                       TextSpan(
                         text:
-                            "There are no dependencies at all or no production dependencies, but rather all of them are devDependencies.\n\n",
+                            "There are no dependencies at all or there are no production dependencies, but rather all of them are devDependencies.\n\n",
                       ),
                       TextSpan(
                         text:
@@ -59,12 +59,12 @@ class VulnerabilitiesWidget extends StatelessWidget {
                         text:
                             "To aid in the discovery of vulnerabilities, the repository should contain one or more of the following files\n\n",
                         children: [
-                          TextSpan(text: "    package.json (npm)\n"),
-                          TextSpan(text: "    Gemfile.lock (RubyGems)\n"),
-                          TextSpan(text: "    pom.xml (Maven) \n"),
-                          TextSpan(text: "    build.gradle (Gradle)\n"),
-                          TextSpan(text: "    build.sbt (Scala)\n"),
-                          TextSpan(text: "    requirements.txt (Python)\n"),
+                          TextSpan(text: "    package.json (npm)\n\n"),
+                          TextSpan(text: "    Gemfile.lock (RubyGems)\n\n"),
+                          TextSpan(text: "    pom.xml (Maven) \n\n"),
+                          TextSpan(text: "    build.gradle (Gradle)\n\n"),
+                          TextSpan(text: "    build.sbt (Scala)\n\n"),
+                          TextSpan(text: "    requirements.txt (Python)\n\n"),
                         ],
                       ),
                     ],
