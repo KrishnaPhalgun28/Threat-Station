@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'doughnut-chart-widget.dart';
+import 'util-widgets.dart';
 import '../providers/inspect-api-provider.dart';
 
 class SourceTypesWidget extends StatelessWidget {
@@ -16,16 +16,16 @@ class SourceTypesWidget extends StatelessWidget {
       Widget? child,
     ) {
       if (inspectAPIProvider.currentState == InspectAPIState.fetchSucceed) {
-        if (inspectAPIProvider.appInspectorData.languages.isNotEmpty) {
+        if (inspectAPIProvider.appInspectorModel.languages.isNotEmpty) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Source Types',
                 style: TextStyle(fontSize: 20),
               ),
               DoughnutChart(
-                inspectAPIProvider.appInspectorData.languages.entries
+                inspectAPIProvider.appInspectorModel.languages.entries
                     .map(
                       (entry) => ChartData(entry.key, entry.value),
                     )

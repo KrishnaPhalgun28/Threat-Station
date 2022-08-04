@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 import '../colors.dart';
+import '../models/snyk-test-model.dart';
 import '../providers/inspect-api-provider.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class VulnerabilitiesWidget extends StatelessWidget {
   const VulnerabilitiesWidget({Key? key}) : super(key: key);
@@ -21,23 +22,55 @@ class VulnerabilitiesWidget extends StatelessWidget {
       ) {
         if (inspectAPIProvider.currentState == InspectAPIState.fetchSucceed) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Vulnerabilities',
                 style: TextStyle(fontSize: 20),
               ),
               const SizedBox(height: 8),
-              ...inspectAPIProvider.snykData
-                  .map(
-                    (SnykData s) => InkWell(
-                      onTap: () {
-                        showDialogWithFields(context, s.description);
-                      },
-                      child: VulnerabilityCard(s),
-                    ),
-                  )
-                  .toList(),
+              if (inspectAPIProvider.snykTestModel.isNotEmpty)
+                ...inspectAPIProvider.snykTestModel
+                    .map(
+                      (SnykTestModel s) => InkWell(
+                        onTap: () {
+                          showDialogWithFields(context, s.description);
+                        },
+                        child: VulnerabilityCard(s),
+                      ),
+                    )
+                    .toList(),
+              if (inspectAPIProvider.snykTestModel.isEmpty)
+                RichText(
+                  textAlign: TextAlign.justify,
+                  text: const TextSpan(
+                    text:
+                        "No vulnerabilities were found. This could be due to a number of factors, such as the ones listed below\n\n",
+                    children: [
+                      TextSpan(
+                        text:
+                            "There are no dependencies at all or no production dependencies, but rather all of them are devDependencies.\n\n",
+                      ),
+                      TextSpan(
+                        text:
+                            "For some languages you may have to install the dependencies before scanning.\n\n",
+                      ),
+                      TextSpan(
+                        text:
+                            "To aid in the discovery of vulnerabilities, the repository should contain one or more of the following files\n\n",
+                        children: [
+                          TextSpan(text: "    package.json (npm)\n"),
+                          TextSpan(text: "    Gemfile.lock (RubyGems)\n"),
+                          TextSpan(text: "    pom.xml (Maven) \n"),
+                          TextSpan(text: "    build.gradle (Gradle)\n"),
+                          TextSpan(text: "    build.sbt (Scala)\n"),
+                          TextSpan(text: "    requirements.txt (Python)\n"),
+                        ],
+                      ),
+                    ],
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
             ],
           );
         } else {
@@ -49,7 +82,7 @@ class VulnerabilitiesWidget extends StatelessWidget {
 }
 
 class VulnerabilityCard extends StatelessWidget {
-  final SnykData s;
+  final SnykTestModel s;
 
   const VulnerabilityCard(
     this.s, {

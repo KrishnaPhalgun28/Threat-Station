@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:threatstation/widgets/util-widgets.dart';
 import '../colors.dart';
 import '../providers/inspect-api-provider.dart';
 
@@ -20,70 +21,33 @@ class InspectStatsWidget extends StatelessWidget {
           return const SizedBox.shrink();
         } else {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Inspect Stats',
                 style: TextStyle(fontSize: 20),
               ),
               const SizedBox(height: 16),
-              Table(
-                defaultColumnWidth: const FixedColumnWidth(186),
-                border: TableBorder.all(
-                  width: 2,
-                  color: HomePageTheme.inspectStatsBorderColor,
-                  style: BorderStyle.solid,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
+                child: Table(
+                  defaultColumnWidth: const FixedColumnWidth(186),
+                  border: TableBorder.all(
+                    width: 2,
+                    color: HomePageTheme.inspectStatsBorderColor,
+                    style: BorderStyle.solid,
+                  ),
+                  children: [
+                    detailRow(
+                      'No of files scanned',
+                      '${inspectAPIProvider.appInspectorModel.filesAnalyzed} / ${inspectAPIProvider.appInspectorModel.totalFiles}',
+                    ),
+                    detailRow(
+                      'No of files affected',
+                      '${inspectAPIProvider.appInspectorModel.filesAffected} / ${inspectAPIProvider.appInspectorModel.totalFiles}',
+                    ),
+                  ],
                 ),
-                children: [
-                  TableRow(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'No of files scanned',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '${inspectAPIProvider.appInspectorData.filesAnalyzed} / ${inspectAPIProvider.appInspectorData.totalFiles}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'No of files affected',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '${inspectAPIProvider.appInspectorData.filesAffected} / ${inspectAPIProvider.appInspectorData.totalFiles}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
               ),
             ],
           );

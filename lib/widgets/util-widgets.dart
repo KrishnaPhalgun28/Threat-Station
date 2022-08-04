@@ -39,3 +39,30 @@ class DoughnutChart extends StatelessWidget {
     );
   }
 }
+
+TableRow detailRow(String left, String right) {
+  return TableRow(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          left,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.start,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          right,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.end,
+        ),
+      ),
+    ],
+  );
+}

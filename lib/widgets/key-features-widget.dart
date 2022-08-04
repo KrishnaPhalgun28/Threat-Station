@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../colors.dart';
 import '../providers/inspect-api-provider.dart';
-import '../providers/key-features-provider.dart';
+import '../models/key-features-model.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,7 +23,7 @@ class KeyFeaturesWidget extends StatelessWidget {
           return const SizedBox.shrink();
         } else {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Key Features',
@@ -50,21 +50,21 @@ class KeyFeaturesWidget extends StatelessWidget {
                       iconSize: 22,
                       splashRadius: 20,
                       color: (inspectAPIProvider
-                              .appInspectorData.featureIndicies
+                              .appInspectorModel.featureIndicies
                               .containsKey(i))
                           ? HomePageTheme.keyFeatureEnabledColor
                           : HomePageTheme.keyFeatureDisabledColor,
                       splashColor: HomePageTheme.keyFeatureSplashColor,
                       onPressed: (inspectAPIProvider
-                              .appInspectorData.patternData
+                              .appInspectorModel.patternData
                               .containsKey(i))
                           ? () {
                               showDialogWithFields(
                                 context,
                                 inspectAPIProvider
-                                    .appInspectorData.featureIndicies[i]!,
+                                    .appInspectorModel.featureIndicies[i]!,
                                 inspectAPIProvider
-                                    .appInspectorData.patternData[i]!,
+                                    .appInspectorModel.patternData[i]!,
                               );
                             }
                           : null,

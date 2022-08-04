@@ -27,6 +27,7 @@ mixin HomePageTheme {
   static const Color vulnerabilityLowColor = Colors.blue;
   static const Color vulnerabilityUnknownColor = Colors.grey;
   static const Color vulnerabilityCriticalColor = Colors.black;
+  static const Color gitPropertiesBorderColor = Colors.purple;
 }
 
 mixin LogoWidgetTheme {
